@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { User } = require('../models/Index');
 
 const getAllUsersService = async () => {
@@ -5,8 +6,16 @@ const getAllUsersService = async () => {
     return users;
 };
 
-const getUserByEmailService = async (email) => {
-    const user = await User.findOne({ where: { email } });
+const getUserByLoginService = async ({ email, password }) => {
+    const user = await User.findOne({ 
+        where: {
+            [Op.and]: [
+                { email },
+                { password },
+            ],
+        },
+        attributes: { exclude: ['password'] },
+    });
     return user;
 };
 
@@ -17,6 +26,6 @@ const getUserByIdService = async (id) => {
 
 module.exports = {
     getAllUsersService,
-    getUserByEmailService,
+    getUserByLoginService,
     getUserByIdService,
 };

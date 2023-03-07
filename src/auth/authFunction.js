@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 
-const secret = process.env.JWT_SECRET || 'Batatinha';
+const secret = process.env.JWT_SECRET;
 
 const JWT_CONFIG = {
   algorithm: 'HS256',
-  expiresIn: '60min',
+  expiresIn: '7d',
 };
 
 const generateToken = (data) => jwt.sign({ data }, secret, JWT_CONFIG);
