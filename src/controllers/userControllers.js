@@ -1,11 +1,7 @@
-const { getUserByEmailService } = require('../services/usersServices');
-
-const getUserByEmailController = async (req, res) => {
-    const { email } = req.body;
-    const user = getUserByEmailService(email);
-    res.status(200).json(user);
+const userController = async (req, res) => {
+    res.status(201).json();
 };
 
 module.exports = {
-    getUserByEmailController,
+    userController,
 };

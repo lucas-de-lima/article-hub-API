@@ -24,8 +24,14 @@ const getUserByIdService = async (id) => {
     return user;
 };
 
+const createNewUser = async ({ displayName, email, password }) => {
+    const user = await User.create({ displayName, email, password });
+    return user;
+  };
+
 module.exports = {
     getAllUsersService,
     getUserByLoginService,
     getUserByIdService,
+    createNewUser,
 };
