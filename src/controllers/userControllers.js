@@ -1,5 +1,10 @@
+const { generateToken } = require('../auth/authFunction');
+
 const userController = async (req, res) => {
-    res.status(201).json();
+    const user = req.data;
+    const token = generateToken(user);
+
+   return res.status(201).json({ token });
 };
 
 module.exports = {

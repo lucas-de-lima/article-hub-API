@@ -1,13 +1,16 @@
+const { createNewUser } = require('../services/usersServices');
 const { validateUserSchema } = require('../validation/validations');
 
-const validateUser = (req, res, next) => {
+const validateUser = async (req, res, next) => {
     const user = req.body;
     const validateResponse = validateUserSchema(user);
-    const errorMessage = validateResponse.error.details[0].message;
     if (validateResponse.error) {
+      const errorMessage = validateResponse.error.details[0].message;
+      console.log(errorMessage);
       return res.status(400).json({ errorMessage });
     }
-    const newUser = '';
+    const newUser = await createNewUser(user);
+    req.data = newUser;
   next();
 };
 
