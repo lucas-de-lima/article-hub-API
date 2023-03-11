@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   const BlogPost = sequelize.define(
-    "blog_post",
+    "BlogPost",
     {
       id: { 
         type: DataTypes.INTEGER, 
@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: true
       }
     },
+    {
+      underscored: true,
+      timestamps: false,
+    }
   );
   BlogPost.associate = (models) => {
     BlogPost.belongsTo(models.User, {
