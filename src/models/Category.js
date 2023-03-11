@@ -3,8 +3,8 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  const Categories = sequelize.define(
-    'Categories',
+  const Category = sequelize.define(
+    'Category',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -14,5 +14,5 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING
     },
     )
-  return Categories;
+  return Category;
 };
