@@ -1,15 +1,22 @@
-const { createNewUser } = require('../services/usersServices');
+const { createNewUser, getUserByEmail } = require('../services/usersServices');
 const { validateUserSchema } = require('../validation/validations');
 
 const validateUser = async (req, res, next) => {
     const user = req.body;
     const validateResponse = validateUserSchema(user);
+
     if (validateResponse.error) {
-      const errorMessage = validateResponse.error.details[0].message;
-      console.log(errorMessage);
-      return res.status(400).json({ errorMessage });
+      const { message } = validateResponse.error.details[0];
+      return res.status(400).json({ message });
     }
+
+    const userExists = await getUserByEmail(user.email);
+    if (userExists) {
+      return res.status(409).json({ message: 'User already registered' });
+    }
+
     const newUser = await createNewUser(user);
+
     req.data = newUser;
   next();
 };

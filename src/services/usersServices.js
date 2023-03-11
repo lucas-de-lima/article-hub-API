@@ -30,8 +30,6 @@ const createNewUser = async ({ displayName, email, password }) => {
         password,
         image: '',
     });
-    // const getNewUser = await getUserByIdService(newUser.dataValues.id);
-    // const data = { email: getNewUser.dataValues.email, password };
     const newUser = await User.findOne({ 
         where: {
             [Op.and]: [
@@ -44,9 +42,19 @@ const createNewUser = async ({ displayName, email, password }) => {
     return newUser;
   };
 
+  const getUserByEmail = async (email) => {
+    const response = await User.findOne({
+        where: {
+            email,
+        },
+    });
+    return response;
+  };
+
 module.exports = {
     getAllUsersService,
     getUserByLoginService,
     getUserByIdService,
     createNewUser,
+    getUserByEmail,
 };
