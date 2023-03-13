@@ -1,5 +1,5 @@
 const { getCategoryById } = require('../services/categoriesServices');
-const { validatePostSchema } = require('../validation/validations');
+const { validatePostSchema, validateUpdatePostSchema } = require('../validation/validations');
 
 const hasCategory = async (categoriesIds) => {
     const response = await Promise.all(
@@ -21,4 +21,14 @@ const validatePost = async (req, res, next) => {
     next();
 };
 
-module.exports = validatePost;
+const validateUpdatePost = async (req, res, next) => {
+    const post = req.body;
+    const validate = validateUpdatePostSchema(post);
+    if (validate.error) {
+        return res.status(400).json({ message: 'Some required fields are missing' });
+    }
+    req.data = post;
+    next();
+};
+
+module.exports = { validatePost, validateUpdatePost };

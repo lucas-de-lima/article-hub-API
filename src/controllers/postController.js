@@ -1,4 +1,5 @@
-const { createNewPost, getAllPosts, getPostById } = require('../services/postServices');
+const { createNewPost, getAllPosts,
+     getPostById, updatePostById } = require('../services/postServices');
 
 const createPostController = async (req, res) => {
    const { id } = req.data;
@@ -21,8 +22,16 @@ const getPostByIdController = async (req, res) => {
     return res.status(200).json(post);
 };
 
+const updatePostByIdController = async (req, res) => {
+    const { id } = req.params;
+    const post = req.data;
+    const updatedPost = await updatePostById(post, id);
+    return res.status(200).json(updatedPost);
+};
+
 module.exports = {
     createPostController,
     getAllPostsController,
     getPostByIdController,
+    updatePostByIdController,
 };
