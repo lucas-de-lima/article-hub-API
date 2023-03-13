@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       title: DataTypes.STRING,
       content: DataTypes.STRING,
-      published: DataTypes.DATE,
-      updated: DataTypes.DATE,
       userId: {
         type: DataTypes.INTEGER,
         foreignKey: true
-      }
+      },
+      published: DataTypes.DATE,
+      updated: DataTypes.DATE,
     },
     {
       underscored: true,

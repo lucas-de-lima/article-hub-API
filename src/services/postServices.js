@@ -1,4 +1,4 @@
-const { BlogPost, sequelize } = require('../models/Index');
+const { BlogPost, Category, User, sequelize } = require('../models/Index');
 const { getCategoryById } = require('./categoriesServices');
 
 const getPostByIdService = async (id) => {
@@ -16,7 +16,6 @@ const createNewPost = async ({ title, content, categoryIds }, userId) => {
       const categories = await Promise.all(
         categoryIds.map((id) => getCategoryById(id)),
       );
-    //   console.log(categories);
       await newPost.setCategories(categories, { transaction: t });
       newPost.dataValues.categories = categories;
       return newPost;
@@ -25,7 +24,19 @@ const createNewPost = async ({ title, content, categoryIds }, userId) => {
   } catch (error) { return error; }
 };
 
+const getAllPosts = async () => {
+  const posts = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  
+  return posts;
+};
+
 module.exports = {
   getPostByIdService,
   createNewPost,
+  getAllPosts,
 };
