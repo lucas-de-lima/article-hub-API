@@ -24,7 +24,7 @@ const getPostByIdController = async (req, res) => {
 
 const updatePostByIdController = async (req, res) => {
     const { id } = req.params;
-    const post = req.data;
+    const post = req.body;
     const updatedPost = await updatePostById(post, id);
     return res.status(200).json(updatedPost);
 };
