@@ -1,4 +1,5 @@
 const { getCategoryById } = require('../services/categoriesServices');
+const { getPostById } = require('../services/postServices');
 const { validatePostSchema, validateUpdatePostSchema } = require('../validation/validations');
 
 const hasCategory = async (categoriesIds) => {
@@ -37,4 +38,19 @@ const validateUpdatePost = async (req, res, next) => {
     next();
 };
 
-module.exports = { validatePost, validateUpdatePost };
+const validateDeletePost = async (req, res, next) => {
+    const { id } = req.params;
+    const { id: userId } = req.data;
+
+    const post = await getPostById(id);
+    if (!post) {
+        return res.status(404).json({ message: 'Post does not exist' });
+    }
+    if (+id !== userId) {
+        return res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    next();
+};
+
+module.exports = { validatePost, validateUpdatePost, validateDeletePost };

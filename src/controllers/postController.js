@@ -1,5 +1,5 @@
 const { createNewPost, getAllPosts,
-     getPostById, updatePostById } = require('../services/postServices');
+     getPostById, updatePostById, deletePostById } = require('../services/postServices');
 
 const createPostController = async (req, res) => {
    const { id } = req.data;
@@ -29,9 +29,17 @@ const updatePostByIdController = async (req, res) => {
     return res.status(200).json(updatedPost);
 };
 
+const deletePostByIdController = async (req, res) => {
+    const { id } = req.params;
+    await deletePostById(id);
+
+    return res.status(204).json({});
+};
+
 module.exports = {
     createPostController,
     getAllPostsController,
     getPostByIdController,
     updatePostByIdController,
+    deletePostByIdController,
 };
