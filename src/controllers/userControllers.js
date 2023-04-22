@@ -1,5 +1,5 @@
 const { generateToken } = require('../auth/authFunction');
-const { getAllUsersService, getUserByIdService } = require('../services/usersServices');
+const { getAllUsersService, getUserByIdService, deleteUser } = require('../services/usersServices');
 
 const createUserController = async (req, res) => {
     const user = req.data;
@@ -24,8 +24,16 @@ const getUserByIdController = async (req, res) => {
     return res.status(200).json(user);
 };
 
+const deleteUserController = async (req, res) => {
+    const { id } = req.data;
+    await deleteUser(id);
+
+    return res.status(204).json({});
+};
+
 module.exports = {
     createUserController,
     getAllUsersController,
     getUserByIdController,
+    deleteUserController,
 };

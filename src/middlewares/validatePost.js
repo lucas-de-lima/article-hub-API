@@ -26,7 +26,6 @@ const validateUpdatePost = async (req, res, next) => {
     const post = req.body;
     const { id } = req.params;
     const { id: userId } = req.data;
-    console.log(id, userId);
     const validate = validateUpdatePostSchema(post);
     if (validate.error) {
         return res.status(400).json({ message: 'Some required fields are missing' });
@@ -46,7 +45,7 @@ const validateDeletePost = async (req, res, next) => {
     if (!post) {
         return res.status(404).json({ message: 'Post does not exist' });
     }
-    if (+id !== userId) {
+    if (post.userId !== userId) {
         return res.status(401).json({ message: 'Unauthorized user' });
     }
 
