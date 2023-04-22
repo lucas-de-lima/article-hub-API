@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, Category, User, sequelize } = require('../models/Index');
 const { getCategoryById } = require('./categoriesServices');
 
@@ -21,7 +22,9 @@ const createNewPost = async ({ title, content, categoryIds }, userId) => {
       return newPost;
     });
     return result;
-  } catch (error) { return error; }
+  } catch (error) {
+    return error;
+  }
 };
 
 const getAllPosts = async () => {
@@ -31,7 +34,7 @@ const getAllPosts = async () => {
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
-  
+
   return posts;
 };
 
@@ -47,20 +50,32 @@ const getPostById = async (id) => {
 
 const updatePostById = async ({ title, content }, id) => {
   try {
-      await BlogPost.update(
-      { title },
-      { where: { id } },
-      );
-      await BlogPost.update(
-      { content },
-      { where: { id } },
-    );
+    await BlogPost.update({ title }, { where: { id } });
+    await BlogPost.update({ content }, { where: { id } });
     return getPostById(id);
-  } catch (error) { return error; }
+  } catch (error) {
+    return error;
+  }
 };
 
 const deletePostById = async (id) => {
   await BlogPost.destroy({ where: { id } });
+};
+
+const getPostByTerm = async (query) => {
+  const post = await BlogPost.findAll({
+    where: {
+      [Op.or]: {
+        title: { [Op.like]: `%${query}%` },
+        content: { [Op.like]: `%${query}%` },
+      },
+    },
+    include: [
+      { model: Category, as: 'categories', through: { attributes: [] } },
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+    ],
+  });
+  return post;
 };
 
 module.exports = {
@@ -70,4 +85,5 @@ module.exports = {
   getPostById,
   updatePostById,
   deletePostById,
+  getPostByTerm,
 };
