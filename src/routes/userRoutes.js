@@ -1,7 +1,10 @@
 const express = require('express');
-const { createUserController, getAllUsersController,
-     getUserByIdController, 
-     deleteUserController } = require('../controllers/userControllers');
+const {
+  createUserController,
+  getAllUsersController,
+  getUserByIdController,
+  deleteUserController,
+} = require('../controllers/userControllers');
 const validateToken = require('../middlewares/validateToken');
 const validateUser = require('../middlewares/validateUser');
 
