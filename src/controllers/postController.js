@@ -43,10 +43,10 @@ const deletePostByIdController = async (req, res) => {
 };
 
 const getPostByTermController = async (req, res) => {
-  const { query } = req;
-  console.log(query);
-  const posts = await getPostByTerm(query);
-  return res.status(201).json(posts);
+  const { q } = req.query;
+  console.log(q);
+  const posts = await getPostByTerm(q);
+  return res.status(200).json(posts);
 };
 
 module.exports = {

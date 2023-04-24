@@ -17,6 +17,7 @@ const validateToken = require('../middlewares/validateToken');
 const postRouter = express.Router();
 
 postRouter.post('/', validateToken, validatePost, createPostController);
+postRouter.get('/search', validateToken, getPostByTermController);
 postRouter.get('/', validateToken, getAllPostsController);
 postRouter.get('/:id', validateToken, getPostByIdController);
 postRouter.put(
@@ -31,6 +32,5 @@ postRouter.delete(
   validateDeletePost,
   deletePostByIdController,
 );
-postRouter.get('/search:searchTerm', validateToken, getPostByTermController);
 
 module.exports = postRouter;
