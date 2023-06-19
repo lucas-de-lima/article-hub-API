@@ -18,7 +18,7 @@ Esses são os principais endpoints disponíveis na API do Article Hub para geren
 Este endpoint é utilizado para autenticar um usuário na API. Ele permite que o usuário faça login fornecendo seu email e senha.
 
 Corpo da Requisição:
-```
+```json
 {
   "email": "lewishamilton@gmail.com",
   "password": "123456"
@@ -27,7 +27,7 @@ Corpo da Requisição:
 Resposta:
 
 Em caso de sucesso, a resposta será um objeto contendo o token de autenticação:
-```
+```json
 {
   "token": "9Pwh6UNBp4S7ovj3Cq7APi..."
 }
@@ -38,7 +38,7 @@ Em caso de sucesso, a resposta será um objeto contendo o token de autenticaçã
 Este endpoint é utilizado para adicionar um novo usuário à base de dados.
 
 Corpo da Requisição:
-```
+```json
 {
   "displayName": "Brett Wiltshire",
   "email": "brett@email.com",
@@ -70,7 +70,7 @@ Se o usuário não for encontrado, será retornada uma resposta com status 404 i
 Este endpoint é utilizado para adicionar uma nova categoria à base de dados.
 
 Corpo da Requisição:
-```
+```json
 {
 "name": "Typescript"
 }
@@ -85,7 +85,7 @@ Este endpoint é utilizado para obter todas as categorias cadastradas na API.
 Resposta:
 
 Em caso de sucesso, a resposta será um array contendo todas as categorias cadastradas, incluindo seus IDs e nomes.
-```
+```json
 [
   {
     "id": 1,
@@ -101,7 +101,7 @@ Em caso de sucesso, a resposta será um array contendo todas as categorias cadas
 Este endpoint é utilizado para adicionar um novo post de blog à base de dados. O post será vinculado às categorias especificadas.
 
 Corpo da Requisição:
-```
+```json
 {
 "title": "Latest updates, August 1st",
 "content": "The whole text for the blog post goes here in this key",
@@ -118,7 +118,7 @@ Este endpoint é utilizado para obter todos os posts de blog cadastrados na API,
 Resposta:
 
 Em caso de sucesso, a resposta será um array contendo todos os posts de blog cadastrados, incluindo seus IDs, títulos, conteúdos, informações do usuário proprietário e categorias associadas.
-```
+```json
 [
   {
     "id": 1,
@@ -174,7 +174,7 @@ Se o post de blog não for encontrado, será retornada uma resposta com status 4
 Este endpoint é utilizado para alterar as informações de um post de blog específico com base no seu ID. Somente o usuário proprietário do post pode realizar essa alteração. É possível alterar apenas o título e o conteúdo do post.
 
 Corpo da Requisição:
-```
+```json
 {
 "title": "Latest updates, August 1st",
 "content": "The whole text for the blog post goes here in this key"
